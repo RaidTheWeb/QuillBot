@@ -108,6 +108,7 @@ class Program():
         self.globals.set(data.Symbol('bool'), type_method(data.Bool))
         self.globals.set(data.Symbol('void'), data.Method(lambda: type(None)))
         self.globals.set(data.Symbol('_pytype'), type_method(data.PyType))
+        self.globals.set(data.Symbol('tuple'), type_method(data.Tuple))
     def py(self, *args):
         code = args[0].val
         d = {**globals(), **self.globals.attrs}

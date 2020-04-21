@@ -7,7 +7,7 @@ import errors
 
 def getline():
     try:
-        line = sys.argv[2]
+        line = input('> ')
         return line
     except KeyboardInterrupt:
         print()
@@ -39,3 +39,4 @@ else:
         val = program.run()
         if val:
             program.print(val)
+

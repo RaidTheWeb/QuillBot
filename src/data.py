@@ -538,3 +538,54 @@ class Range(Type):
             block.val.globals.attrs[name] = Number(self.val.val)
             block.val.run()
             self.val.val += self.inc.val
+
+class Tuple(Type):
+    
+    def __init__(self, *args):
+        self.val = []
+        self.attrs = {
+            '_get':Method(super().get),
+            '_copy': Method(self.copy),
+            "_eq":Method(super().eq),
+        }
+
+        for arg in args:
+            self.val.append(arg)
+        
+        self.val = tuple(self.val)
+    
+    def copy(self):
+        return Tuple(tuple.copy(self.val))
+
+
+class Bytes(Type):
+    
+    def __init__(self, *obj, encoding = "utf-8"):
+
+        self.attrs = {
+            '_set':Method(super().set),
+            '_get':Method(super().get),
+            '_eq':Method(super().eq),
+            "decode":Method(self.decode)
+        }
+
+        if type(obj) == List:
+            self.val = bytes(list(obj))
+        
+        elif type(obj) == String:
+            self.val = bytes(str(obj), encoding)
+
+        elif type(obj) == Number:
+            self.val = bytes(int(obj))
+        
+        else:
+            self.val = None
+            errors.error(f"Bytes expected either a list, string, or number object but got {type(obj)}")
+    
+    def decode(self, encoding):
+        return String(self.val.decode(encoding = encoding))
+    
+ class Array(Type):
+    
+    def __init__(self, *args):
+        pass
