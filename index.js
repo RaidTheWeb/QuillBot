@@ -24,6 +24,8 @@ process.kill = '';
 
 process.abort = '';
 
+process.reallyExit = '';
+
 
 const PREFIX = '!';
 
